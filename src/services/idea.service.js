@@ -1,10 +1,10 @@
 const BaseService = require('./base.service');
-let _ideaRepsository = null;
+let _ideaRepository = null;
 
 class IdeaService extends BaseService{
     constructor({IdeaRepository}){
         super(IdeaRepository);
-        _ideaRepsository = IdeaRepository; 
+        _ideaRepository = IdeaRepository; 
     }
 
     async getUserIdeas(author){
@@ -15,7 +15,7 @@ class IdeaService extends BaseService{
             throw error;
         }
 
-        return await _ideaRepsository.getUserIdeas(author);
+        return await _ideaRepository.getUserIdeas(author);
     }
 
     async upvoteIdea(ideaId){
@@ -26,7 +26,7 @@ class IdeaService extends BaseService{
             throw error;
         }
 
-        const idea = await _ideaRepsository.get(ideaId);
+        const idea = await _ideaRepository.get(ideaId);
         if(!idea){
             const error = new Error();
             error.status = 404;
@@ -34,7 +34,7 @@ class IdeaService extends BaseService{
             throw error;
         }
         idea.upvotes.push(true);
-        return await _ideaRepsository.update(ideaId, {upvotes: idea.upvotes});
+        return await _ideaRepository.update(ideaId, {upvotes: idea.upvotes});
     }
 
     async downvoteIdea(ideaId){
@@ -45,7 +45,7 @@ class IdeaService extends BaseService{
             throw error;
         }
 
-        const idea = await _ideaRepsository.get(ideaId);
+        const idea = await _ideaRepository.get(ideaId);
         if(!idea){
             const error = new Error();
             error.status = 404;
@@ -53,7 +53,7 @@ class IdeaService extends BaseService{
             throw error;
         }
         idea.downvotes.push(true);
-        return await _ideaRepsository.update(ideaId, {downvotes: idea.downvotes});
+        return await _ideaRepository.update(ideaId, {downvotes: idea.downvotes});
     }
 }
 
