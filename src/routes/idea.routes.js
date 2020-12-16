@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const {ParseIntMiddleware} = require('../middlewares');
+const {AuthMiddleware, ParseIntMiddleware} = require('../middlewares');
 
 module.exports = function({IdeaController}){
     const router = Router();
